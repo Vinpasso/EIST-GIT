@@ -1,5 +1,7 @@
 package de.tum.in.eist;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
 import java.util.concurrent.Future;
 
 import de.tum.in.eist.rentalcar.RentalCarAPI;
@@ -17,7 +19,71 @@ public class MobilityServices {
      * 4. Call RankingSystem to find optimal travel option
      * 5. Display all travel options with ranking/recommendation to user. 
      */
-    
+	  
+	  //1
+		Location startLoc = null;
+		Location endLoc = null;
+		int userTypInt = -1; // -1 No UserTyp, 0 Geschäftskunde, 1 Student, 2
+								// Familie
+		int travlers = 1; // Standart is 1 travler, but a family can travel with
+							// more persons together
+		Scanner scanner = new Scanner(System.in); // reading Usertyp, the start
+													// and end Location
+		System.out.println("Welcome to EIST Travel APP\n Please state your User Typ (Geschäftskunde, Student, Familie)");
+		while (userTypInt == -1) {
+			String userTyp;
+			userTyp = scanner.next();
+			userTyp = userTyp.toLowerCase();
+			switch (userTyp) {
+			case "geschäftskunde":
+				userTypInt = 0;
+				break;
+			case "geschaeftskunde":
+				userTypInt = 0;
+				break;
+			case "student":
+				userTypInt = 1;
+				break;
+			case "familie":
+				userTypInt = 2;
+				break;
+			default:
+				System.out.println("Sry Dave, i can't do that\nPlease state your User Typ (Geschäftskunde, Student, Familie)");
+				break;
+			}
+		}
+		if (userTypInt == 2) {
+			System.out
+					.println("With how many family Members do you wish to travel?");
+			while (true) {
+				try {
+					travlers = Integer.parseInt(scanner.next());
+					break;
+				} catch (NumberFormatException e) {
+					System.out.println("With how many family Members do you wish to travel? Please insert a Number");
+				}
+			}
+		}
+		
+		System.out.println("What is your starting Location?");
+		startLoc = getLocation(scanner);
+		System.out.println("Where do you wish to travel to?");
+		endLoc = getLocation(scanner);
+		switch (userTypInt) {
+		case 0:
+			System.out.println("You travel as a businessman and want to go from "+startLoc.getLatitude()+"-"+startLoc.getLongitude()+" to "+endLoc.getLatitude()+"-"+endLoc.getLongitude());
+			break;
+		case 1:
+			System.out.println("You travel as a student and want to go from "+startLoc.getLatitude()+"-"+startLoc.getLongitude()+" to "+endLoc.getLatitude()+"-"+endLoc.getLongitude());
+			break;
+		case 2:
+			System.out.println("You travel as a family with "+travlers+" Members and want to go from "+startLoc.getLatitude()+"-"+startLoc.getLongitude()+" to "+endLoc.getLatitude()+"-"+endLoc.getLongitude());
+			break;
+		default:
+			break;
+		}
+		
+		/*
     // Example Location Object - Source Location coordinates
     Trip trip = new Trip();
     Location sourceLocation = new Location(48.18363, 13.49423);
@@ -40,7 +106,7 @@ public class MobilityServices {
     
     // Example Utils Function - Find distance between 2 Locations
     double distance = Utils.findDistance(sourceLocation, destLocation);
-    
+    */
     /* Hint - if distance < 500 kms, user can go travel
     *         by rental car or by train.
     *         if 500 < distance < 1000, user can only
@@ -48,7 +114,37 @@ public class MobilityServices {
     *         if distance > 1000 kms, then no travel option
     *         is possible
     */  
+		
   }
+
+	private static Location getLocation(Scanner scanner) {
+		Location tempLoc = null;
+		double latitude = -1;
+		double longitude = -1;
+		while (latitude == -1) {
+			try {
+				System.out.println("Latitude:");
+				latitude = Double.parseDouble(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("error");
+			}
+		}
+		while (longitude == -1) {
+			try {
+				System.out.println("Longtitude:");
+				longitude = Double.parseDouble(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("error");
+			}
+		}
+		try {
+			tempLoc = new Location(latitude, longitude);
+		} catch (IllegalArgumentException e) {
+			System.out.println("I don't know this place");
+		}
+
+		return tempLoc;
+	}
   
   /**
    * Maps user class with car class<br>
@@ -56,6 +152,8 @@ public class MobilityServices {
    * Business - PremiumCar<br>
    * Family - MidsizeSUV
    */
+
+  
   private static String getCarClass(String userClass) {
     return null;
   }
