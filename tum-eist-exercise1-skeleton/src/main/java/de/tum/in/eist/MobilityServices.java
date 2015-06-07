@@ -178,6 +178,7 @@ public class MobilityServices {
 	  if(distance < 500)
 	  {
 		  trip.rentalCarTrip = RentalCarAPI.MakeTrip(getCarClass(userClass), origin, destination);
+		  trip.carApiSuccess = true;
 	  }
 	  if(distance < 1000)
 	  {
@@ -186,6 +187,7 @@ public class MobilityServices {
 		  trip.sourceCarTrip = RentalCarAPI.MakeTrip(getCarClass(userClass), origin, originStation);
 		  trip.trainTrip = TrainAPI.MakeTrip(getCabinClass(userClass), passengers, originStation, destinationStation);
 		  trip.destCarTrip = RentalCarAPI.MakeTrip(getCarClass(userClass), destinationStation, destination);
+		  trip.trainApiSuccess = true;
 	  }
 	  return trip;
   }
