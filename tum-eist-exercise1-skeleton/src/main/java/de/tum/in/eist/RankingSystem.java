@@ -26,8 +26,8 @@ public class RankingSystem {
      *        a solution for this before adding them up.
      */
 	  totalPrice = fixPrice(rentalCarTrip.getPrice());
-	  totalDuration = fixDurations(rentalCar.getDuration()) + fixDurations(rentalCarTrip.getDuration());
-	  totalDistance = fixDistances(rentalCar.getDistance()) + fixDistances(rentalCarTrip.getDistance());
+	  totalDuration = Utils.round((fixDurations(rentalCar.getDuration()) + fixDurations(rentalCarTrip.getDuration()))/60.0,2);
+	  totalDistance = Utils.round((fixDistances(rentalCar.getDistance()) + fixDistances(rentalCarTrip.getDistance()))/1000,1);
   }
 
 private double fixPrice(String price) {
