@@ -125,12 +125,6 @@ private double fixPrice(String price) {
 			return null;
 		}
 		else {
-			if(trip.carApiSuccess){
-				return "Car";
-			}
-			if(trip.trainApiSuccess){
-				return "Train";
-			}
 			return "None";
 		}
 	}
