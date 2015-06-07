@@ -76,8 +76,8 @@ private double fixPrice(String price) {
      *        a solution for this before adding them up.
      */
 	  totalPrice = fixPrice(sourceCarTrip.getPrice()) + fixPrice(destCarTrip.getPrice()) + fixPrice(trainTrip.getPrice());
-	  totalDuration = fixDurations(rentalCar.getDuration()) + fixDurations(sourceCarTrip.getDuration()) + fixDurations(destCarTrip.getDuration()) + fixDurations(trainTrip.getDuration());
-	  totalDistance = fixDistances(rentalCar.getDistance()) + fixDistances(sourceCarTrip.getDistance()) + fixDistances(destCarTrip.getDistance()) + fixDurations(trainTrip.getDistance());
+	  totalDuration = Utils.round((fixDurations(rentalCar.getDuration()) + fixDurations(sourceCarTrip.getDuration()) + fixDurations(destCarTrip.getDuration()) + fixDurations(trainTrip.getDuration()))/60.0,2);
+	  totalDistance = Utils.round((fixDistances(rentalCar.getDistance()) + fixDistances(sourceCarTrip.getDistance()) + fixDistances(destCarTrip.getDistance()) + fixDistances(trainTrip.getDistance()))/1000,1);
   }
 
   /**
@@ -87,46 +87,45 @@ private double fixPrice(String price) {
    *          Family - Longest Time<br>
    *          Student - Cheapest<br>
    */
-  static String findOptimalOption(String userClass, Trip trip) {
-    /*
-     * TODO
-     * Calculate the most optimal travel option here.
-     * You may return a String like "Car" or "Train" from this method
-     * as recommended option or may choose your own approach to
-     * return something else.
-     * Hint - Make sure you have totalPrice, totalDuration and totalDistance
-     * of each option before comparing them. See calculateTrainTotal for example.
-     */
-	  RankingSystem rankingcar = new RankingSystem();
-	  RankingSystem rankingtrain = new RankingSystem();
-	  rankingcar.calculateCarTotal(trip.rentalCar, trip.rentalCarTrip);
-	  rankingtrain.calculateTrainTotal(trip.rentalCar, trip.sourceCarTrip, trip.trainTrip, trip.destCarTrip);
-	  switch (userClass) {
-	case "businessman": //lowest duration
-	case "geschäftskunde":
-	case "geschaeftskunde":
-	case "business":
-		if(rankingcar.totalDuration<rankingtrain.totalDuration){
-			return "car. Alternativ: Train";
-		} else {
-			return "train. Alternativ: car";
+	static String findOptimalOption(String userClass, Trip trip) {
+		/*
+		 * TODO Calculate the most optimal travel option here. You may return a
+		 * String like "Car" or "Train" from this method as recommended option
+		 * or may choose your own approach to return something else. Hint - Make
+		 * sure you have totalPrice, totalDuration and totalDistance of each
+		 * option before comparing them. See calculateTrainTotal for example.
+		 */
+		userClass = userClass.toLowerCase();
+		if (trip.carApiSuccess && trip.trainApiSuccess) {
+			switch (userClass) {
+			case "businessman": // lowest duration
+			case "geschäftskunde":
+			case "geschaeftskunde":
+			case "business":
+				if (trip.carTravel.totalDuration < trip.trainTravel.totalDuration) {
+					return "Car";
+				} else {
+					return "Train";
+				}
+			case "student": // lowest price
+				if (trip.carTravel.totalPrice < trip.trainTravel.totalPrice) {
+					return "Car";
+				} else {
+					return "Train";
+				}
+			case "family": // highest duration
+				if (trip.carTravel.totalDuration > trip.trainTravel.totalDuration) {
+					return "Car";
+				} else {
+					return "Train";
+				}
+			default:
+				break;
+			}
+			return null;
 		}
-	case "student": //lowest price
-		if(rankingcar.totalPrice<rankingtrain.totalPrice){
-			return "car. Alternativ: Train";
-		} else {
-			return "train. Alternativ: car";
+		else {
+			return "None";
 		}
-	case "family": //highest duration
-	case "familie":
-		if(rankingcar.totalDuration>rankingtrain.totalDuration){
-			return "car. Alternativ: Train";
-		} else {
-			return "train. Alternativ: car";
-		}
-	default:
-		break;
 	}
-    return null;
-  }
 }
