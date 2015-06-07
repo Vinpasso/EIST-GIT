@@ -59,6 +59,31 @@ public class RankingSystem {
      * Hint - Make sure you have totalPrice, totalDuration and totalDistance
      * of each option before comparing them. See calculateTrainTotal for example.
      */
+	  switch (userClass) {
+	case "businessman": //lowest duration
+	case "geschäftskunde":
+	case "geschaeftskunde":
+		if(trip.carTravel.totalDuration<trip.trainTravel.totalDuration){
+			return "car";
+		} else {
+			return "train";
+		}
+	case "student": //lowest price
+		if(trip.carTravel.totalPrice<trip.trainTravel.totalPrice){
+			return "car";
+		} else {
+			return "train";
+		}
+	case "family": //highest duration
+	case "familie":
+		if(trip.carTravel.totalDuration>trip.trainTravel.totalDuration){
+			return "car";
+		} else {
+			return "train";
+		}
+	default:
+		break;
+	}
     return null;
   }
 }
