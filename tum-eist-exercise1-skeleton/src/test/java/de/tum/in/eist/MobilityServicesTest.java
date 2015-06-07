@@ -27,6 +27,19 @@ public class MobilityServicesTest {
 		assertEquals("getCarClass Family", "MidsizeSUV", method.invoke(null, "family"));
 		assertEquals("getCarClass Family", "MidsizeSUV", method.invoke(null, "Family"));
 		assertEquals("getCarClass Family", "MidsizeSUV", method.invoke(null, "FAMILY"));
-}
+	}
 
+	@Test
+	public void testCalculateTripOptions() throws Exception
+	{
+		Method method = MobilityServices.class.getDeclaredMethod("calculateTripOptions", String.class, Integer.TYPE, Location.class, Location.class);
+		method.setAccessible(true);
+		Trip trip = (Trip) method.invoke(null, "student", 1, new Location(0, 0), new Location(0, 0));
+		assertEquals("calculateTripOptions Distance 0", true, trip.carApiSuccess);
+		assertEquals("calculateTripOptions Distance 0", true, trip.trainApiSuccess);
+		assertEquals("calculateTripOptions Distance 0", "0.0 Meters", trip.rentalCarTrip.getDistance());
+		assertEquals("calculateTripOptions Distance 0", "0.0 Meters", trip.rentalCarTrip.getDuration());
+		assertEquals("calculateTripOptions Distance 0", "0.0 Meters", trip.rentalCarTrip.getPrice());
+
+	}
 }
