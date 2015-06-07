@@ -4,9 +4,11 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import de.tum.in.eist.rentalcar.RentalCarAPI;
+import de.tum.in.eist.rentalcar.RentalCarTrip;
 import de.tum.in.eist.train.TrainAPI;
 
 /**
@@ -161,22 +163,45 @@ public class MobilityServices {
 	  return Utils.findDistance(origin, destination);
   }
   
-  private static List<Trip> calculateTripOptions(String userClass, int passengers, Location origin, Location destination)
+  private static Trip calculateTripOptions(String userClass, int passengers, Location origin, Location destination)
   {
 	  double distance = calculateDistance(origin, destination);
-	  LinkedList<Trip> trips = new LinkedList<>();
+	  Trip trip = new Trip();
 	  if(distance < 500)
 	  {
-		  RentalCarAPI.MakeTrip(getCarClass(userClass), origin, destination);
+		  trip.rentalCarTrip = RentalCarAPI.MakeTrip(getCarClass(userClass), origin, destination);
 	  }
 	  if(distance < 1000)
 	  {
-		  TrainAPI.MakeTrip(getCabinClass(userClass), passengers, origin, destination);
+		  Location originStation = Utils.getTrainStation(origin);
+		  Location destinationStation = Utils.getTrainStation(destination);
+		  trip.sourceCarTrip = RentalCarAPI.MakeTrip(getCarClass(userClass), origin, originStation);
+		  trip.trainTrip = TrainAPI.MakeTrip(getCabinClass(userClass), passengers, originStation, destinationStation);
+		  trip.destCarTrip = RentalCarAPI.MakeTrip(getCarClass(userClass), destinationStation, destination);
 	  }
-	  return trips;
+	  return trip;
   }
 
-
+  private static RentalCarTrip synchronousRentalCarMakeTrip(String carClass, Location origin, Location destination)
+  {
+	  return RentalCarAPI.MakeTrip(carClass, origin, destination);
+  }
+  
+  private static void asynchronousRentalCarMakeTrip(String carClass, Location origin, Location destination, final RentalCarTripListener listener)
+  {
+	  final Future<RentalCarAPI> future = RentalCarAPI.asyncMakeTrip(carClass, origin, destination);
+	  new Thread(new Runnable() {
+		
+		@Override
+		public void run() {
+			try {
+				listener.tripComputed(future.get().trip.toRentalCar());
+			} catch (InterruptedException | ExecutionException e) {
+				listener.computationFailed(e);
+			}
+		}
+	}).start();
+  }
   
   private static String getCarClass(String userClass) {
     return null;
