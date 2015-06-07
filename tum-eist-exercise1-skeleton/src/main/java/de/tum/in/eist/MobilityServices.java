@@ -152,6 +152,27 @@ public class MobilityServices {
    * Business - PremiumCar<br>
    * Family - MidsizeSUV
    */
+   
+     private static double calculateDistance(Location origin, Location destination)
+  {
+	  return Utils.findDistance(origin, destination);
+  }
+  
+  private static List<Trip> calculateTripOptions(String userClass, int passengers, Location origin, Location destination)
+  {
+	  double distance = calculateDistance(origin, destination);
+	  LinkedList<Trip> trips = new LinkedList<>();
+	  if(distance < 500)
+	  {
+		  RentalCarAPI.MakeTrip(getCarClass(userClass), origin, destination);
+	  }
+	  if(distance < 1000)
+	  {
+		  TrainAPI.MakeTrip(getCabinClass(userClass), passengers, origin, destination);
+	  }
+	  return trips;
+  }
+
 
   
   private static String getCarClass(String userClass) {
