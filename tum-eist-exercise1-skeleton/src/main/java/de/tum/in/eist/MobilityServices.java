@@ -156,13 +156,7 @@ public class MobilityServices {
 
 		return tempLoc;
 	}
-  
-  /**
-   * Maps user class with car class<br>
-   * Student - Bike<br>
-   * Business - PremiumCar<br>
-   * Family - MidsizeSUV
-   */
+
    
      private static double calculateDistance(Location origin, Location destination)
   {
@@ -209,8 +203,24 @@ public class MobilityServices {
 	}).start();
   }
   
+  /**
+   * Maps user class with car class<br>
+   * Student - Bike<br>
+   * Business - PremiumCar<br>
+   * Family - MidsizeSUV
+   */
   private static String getCarClass(String userClass) {
-    return null;
+    switch(userClass.toLowerCase())
+    {
+    case "student":
+    	return "Bike";
+    case "business":
+    	return "PremiumCar";
+    case "family":
+    	return "MidsizeSUV";
+	default:
+    	return "Haxx0r Psch0rr";
+    }
   }
   
   /**
