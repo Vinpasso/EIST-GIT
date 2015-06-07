@@ -78,15 +78,23 @@ public class MobilityServices {
 		startLoc = getLocation(scanner);
 		System.out.println("Where do you wish to travel to?");
 		endLoc = getLocation(scanner);
+		Trip trip1;
 		switch (userTypInt) {
 		case 0:
 			System.out.println("You travel as a businessman and want to go from "+startLoc.getLatitude()+"-"+startLoc.getLongitude()+" to "+endLoc.getLatitude()+"-"+endLoc.getLongitude());
+			trip1 = calculateTripOptions("business", 1, startLoc, endLoc);
+			System.out.println("Optimal: "+RankingSystem.findOptimalOption("business", trip1));
+			
 			break;
 		case 1:
 			System.out.println("You travel as a student and want to go from "+startLoc.getLatitude()+"-"+startLoc.getLongitude()+" to "+endLoc.getLatitude()+"-"+endLoc.getLongitude());
+			trip1 = calculateTripOptions("student", 1, startLoc, endLoc);
+			System.out.println("Optimal: "+RankingSystem.findOptimalOption("student", trip1));
 			break;
 		case 2:
 			System.out.println("You travel as a family with "+travlers+" Members and want to go from "+startLoc.getLatitude()+"-"+startLoc.getLongitude()+" to "+endLoc.getLatitude()+"-"+endLoc.getLongitude());
+			trip1 = calculateTripOptions("family", travlers, startLoc, endLoc);
+			System.out.println("Optimal: "+RankingSystem.findOptimalOption("family", trip1));
 			break;
 		default:
 			break;
@@ -249,6 +257,10 @@ public class MobilityServices {
    * else find the car class mapped with user class
    */
   private static String findCarClass(Location origin, Location destination, String userClass) {
-    return null;
-  }
+	    if(Utils.findDistance(origin, destination)<5000){
+	    	return "Taxi";
+	    } else {
+	    	return getCarClass(userClass);
+	    }
+	  }
 }

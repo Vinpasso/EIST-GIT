@@ -97,27 +97,32 @@ private double fixPrice(String price) {
      * Hint - Make sure you have totalPrice, totalDuration and totalDistance
      * of each option before comparing them. See calculateTrainTotal for example.
      */
+	  RankingSystem rankingcar = new RankingSystem();
+	  RankingSystem rankingtrain = new RankingSystem();
+	  rankingcar.calculateCarTotal(trip.rentalCar, trip.rentalCarTrip);
+	  rankingtrain.calculateTrainTotal(trip.rentalCar, trip.sourceCarTrip, trip.trainTrip, trip.destCarTrip);
 	  switch (userClass) {
 	case "businessman": //lowest duration
 	case "geschäftskunde":
 	case "geschaeftskunde":
-		if(trip.carTravel.totalDuration<trip.trainTravel.totalDuration){
-			return "car";
+	case "business":
+		if(rankingcar.totalDuration<rankingtrain.totalDuration){
+			return "car. Alternativ: Train";
 		} else {
-			return "train";
+			return "train. Alternativ: car";
 		}
 	case "student": //lowest price
-		if(trip.carTravel.totalPrice<trip.trainTravel.totalPrice){
-			return "car";
+		if(rankingcar.totalPrice<rankingtrain.totalPrice){
+			return "car. Alternativ: Train";
 		} else {
-			return "train";
+			return "train. Alternativ: car";
 		}
 	case "family": //highest duration
 	case "familie":
-		if(trip.carTravel.totalDuration>trip.trainTravel.totalDuration){
-			return "car";
+		if(rankingcar.totalDuration>rankingtrain.totalDuration){
+			return "car. Alternativ: Train";
 		} else {
-			return "train";
+			return "train. Alternativ: car";
 		}
 	default:
 		break;
