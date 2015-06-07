@@ -220,7 +220,17 @@ public class MobilityServices {
    * Family - Economy
    */
   private static String getCabinClass(String userClass) {
-    return null;
+    switch(userClass.toLowerCase())
+    {
+    case "student":
+    	return "ThirdClass";
+    case "business":
+    	return "FirstClass";
+    case "family":
+    	return "Economy";
+	default:
+    	return "Haxx0r Psch0rr";
+    }
   }
   
   /**
