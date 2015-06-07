@@ -25,6 +25,37 @@ public class RankingSystem {
      *        for rentalCar and rentalCarTrip. You have to find 
      *        a solution for this before adding them up.
      */
+	  totalPrice = Double.parseDouble(rentalCarTrip.getPrice().substring(0, rentalCarTrip.getPrice().indexOf(" ")));
+	  totalDuration = fixDurations(rentalCar.getDuration()) + fixDurations(rentalCarTrip.getDuration());
+	  totalDistance = fixDistances(rentalCar.getDistance()) + fixDistances(rentalCarTrip.getDistance());
+  }
+  
+  private double fixDurations(String duration)
+  {
+	  double time = Double.parseDouble(duration.substring(0, duration.indexOf(" ")));
+	  String rest = duration.substring(duration.indexOf(" ") + 1);
+	  switch(rest)
+	  {
+	  case "Minutes":
+		  break;
+	  case "Hours":
+		  time *= 60;
+	  }
+	  return time;
+  }
+  
+  private double fixDistances(String distance)
+  {
+	  double meters = Double.parseDouble(distance.substring(0, distance.indexOf(" ")));
+	  String rest = distance.substring(distance.indexOf(" ") + 1);
+	  switch(rest)
+	  {
+	  case "Meters":
+		  break;
+	  case "Kms":
+		  meters *= 1000;
+	  }
+	  return meters;
   }
 
   /**
