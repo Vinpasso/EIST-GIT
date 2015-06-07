@@ -63,6 +63,10 @@ public class MobilityServices {
 			while (true) {
 				try {
 					travlers = Integer.parseInt(scanner.next());
+					if(travlers < 2){
+						System.out.println("Sorry, but a Family must have 2 or more Members");
+						continue;
+					}
 					break;
 				} catch (NumberFormatException e) {
 					System.out.println("With how many family Members do you wish to travel? Please insert a Number");
@@ -87,6 +91,8 @@ public class MobilityServices {
 		default:
 			break;
 		}
+		
+		
 		
 		/*
     // Example Location Object - Source Location coordinates
