@@ -1,0 +1,23 @@
+<html ng-app="Mobility Services">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>TUM Mobility Services</title>
+<link rel="stylesheet" type="text/css"
+  href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+  <script src="./res/js/main.js"></script>
+  <script src="./res/js/utils.js"></script>
+  <script src="./res/js/directives.js"></script>
+  <section style="margin: 20px;"
+    ng-controller="travelController as travelCtrl">
+  <h1>Welcome to TUM Mobility Services</h1>
+  <travel-form></travel-form>
+  <rental-car-plan></rental-car-plan>
+  <train-plan></train-plan>
+  </section>
+</body>
+</html>

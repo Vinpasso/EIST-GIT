@@ -1,0 +1,41 @@
+<form style="width: 30%" role="form" name="travel"
+  ng-submit="travel.$valid && travelCtrl.findTravelOptions()">
+  <div class="form-group">
+    <label for="userClass">User Class*</label>
+    <select class="form-control" name="userClass" id="userClass"
+      ng-model="userClass" required>
+      <option value="Business">Business</option>
+      <option value="Family" selected>Family</option>
+      <option value="Student">Student</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="sourceLoc">Source Coordinates*</label>
+    <input type="text"
+      class="form-control" ng-model="sourceLat" required />
+    <input type="text"
+      class="form-control" ng-model="sourceLong" required />
+  </div>
+  <div class="form-group">
+    <label for="destLoc">Destination Coordinates*</label>
+    <input type="text"
+      class="form-control" ng-model="destLat" required />
+    <input type="text"
+      class="form-control" ng-model="destLong" required />
+  </div>
+  <div class="form-group">
+    <label for="seats">Seats*</label>
+    <select class="form-control" name="seats" 
+    data-ng-options="o.value for o in seatOptions" 
+    data-ng-model="selectedOption"></select>
+  </div>
+  <button type="submit" class="btn btn-primary" ng-disabled=travel.$invalid>Find My Options</button>
+</form>
+<div ng-show=showResult>
+<b>Total Geographical distance between source and destination is
+    {{distance}} Kms.</b>
+</div>
+<div ng-show=showError>
+  <b>API Errors: </b><br>
+  {{error}}
+</div>
