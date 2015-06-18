@@ -1,0 +1,24 @@
+<hr
+  ng-show="showRentalCarTripPlan"
+  style="width: 100%; border-width: 3px;" align="left">
+<div ng-show="showRentalCarTripPlan" class="container" ng-style="{'background-color': recommend.carBGColor}">
+<div class="row">
+<div class="col-xs-6">
+  <h3>By Rental Vehicle {{recommend.carTrip}}</h3>
+  <p>
+    <b>Total Price: </b>{{carTrip.totalCarPrice}} EUR<br> <b>Total Duration:
+    </b>{{carTrip.totalCarDuration}} Hours<br> <b>Total Distance: </b>{{carTrip.totalCarDistance}}
+    Kms
+  </p>
+  <p>
+    <b>1. Walk {{carTrip.sourceCarLocation.distance}} to get {{carTrip.sourceCarLocation.type}} at
+      Coordinates: {{carTrip.sourceCarLocation.coordinates.latitude}}, {{carTrip.sourceCarLocation.coordinates.longitude}}</b><br> Walk
+    Duration: {{carTrip.sourceCarLocation.duration}}<br> Vehicle Type: {{carTrip.sourceCarLocation.type}}<br>
+    Typical Seating: {{carTrip.sourceCarLocation.seats}}<br> <br> <b>2.
+      Travel {{carTrip.destCarTrip.distance}} in {{carTrip.destCarTrip.carClass}} to your destination.</b><br>
+    Travel Duration: {{carTrip.destCarTrip.duration}}<br> Trip Price:
+    {{carTrip.destCarTrip.price}}
+  </p>
+</div>
+</div>
+</div>

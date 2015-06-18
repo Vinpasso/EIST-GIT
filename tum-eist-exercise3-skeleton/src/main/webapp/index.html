@@ -1,0 +1,77 @@
+<html ng-app="Mobility Services">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>TUM Mobility Services</title>
+<link rel="stylesheet" type="text/css"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+	<section style="margin: 20px;"
+		ng-controller="NavController as navigation">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">TUM Mobility Services</a>
+				</div>
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li ng-class="{ active: navigation.isSelected(1)}"><a
+							href="#" ng-click="navigation.selectTab(1)">Home</a></li>
+						<li ng-class="{ active: navigation.isSelected(2)}"><a
+							href="#" ng-click="navigation.selectTab(2)">Travel</a></li>
+						<li ng-class="{ active: navigation.isSelected(3)}"><a
+							href="#" ng-click="navigation.selectTab(3)">Example</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">Settings
+								<span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li ng-class="{ active: navigation.isSelected(4)}"><a
+									href="#" ng-click="navigation.selectTab(4)">Account
+										Settings</a></li>
+								<li class="divider"></li>
+								<li ng-controller="logoutURLController as logoutCtrl"><a
+									href={{logoutURL}}>Logout</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="navigation" ng-show="navigation.isSelected(1)">
+			<welcome-screen></welcome-screen>
+		</div>
+		<div class="navigation" ng-show="navigation.isSelected(2)"
+			ng-controller="travelForm as travelCtrl">
+			<travel-form></travel-form>
+			<rental-car-plan></rental-car-plan>
+			<train-plan></train-plan>
+			<flight-plan></flight-plan>
+		</div>
+		<div class="navigation" ng-show="navigation.isSelected(3)"
+			ng-controller="exampleForm as exampleCtrl">
+			<example-form></example-form>
+			<rental-car-plan></rental-car-plan>
+			<train-plan></train-plan>
+		</div>
+		<div class="navigation" ng-show="navigation.isSelected(4)"
+			style="width: 50%">
+			<user-form></user-form>
+		</div>
+	</section>
+	<script src="./res/js/main.js"></script>
+	<script src="./res/js/initializeScope.js"></script>
+	<script src="./res/js/utils.js"></script>
+	<script src="./res/js/directives.js"></script>
+	<script src="./res/js/travelController.js"></script>
+	<script src="./res/js/exampleController.js"></script>
+</body>
+</html>

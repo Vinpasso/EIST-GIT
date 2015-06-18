@@ -1,0 +1,41 @@
+<hr ng-show="showFlightTripPlan" style="width: 100%; border-width: 3px;"
+  align="left">
+<div ng-show="showFlightTripPlan" class="container" ng-style="{'background-color': recommend.flightBGColor}">
+<div class="row">
+<div class="col-xs-6">
+  <h3>By Flight {{recommend.flightTrip}}</h3>
+  <p>
+    <b>Total Price: </b>{{flightTrip.totalFlightPrice}} EUR<br> <b>Total
+      Duration: </b>{{flightTrip.totalFlightDuration}} Hours
+  </p>
+  <p>
+    <b>1. Walk {{flightTrip.sourceCarLocation.distance}} to get {{flightTrip.sourceCarLocation.type}} at
+      Coordinates: {{flightTrip.sourceCarLocation.coordinates.latitude}}, {{flightTrip.sourceCarLocation.coordinates.longitude}}</b><br> Walk
+    Duration: {{flightTrip.sourceCarLocation.duration}}<br> Vehicle Type: {{flightTrip.sourceCarLocation.type}}<br>
+    Typical Seating: {{flightTrip.sourceCarLocation.seats}}<br> <br> <b>2.
+      Travel {{flightTrip.sourceCarTrip.distance}} to {{flightTrip.sourceAirport}}.</b><br>
+    Travel Duration: {{flightTrip.sourceCarTrip.duration}}<br> Trip Price:
+    {{flightTrip.sourceCarTrip.price}}<br> <br> <b>3. Take one of the
+      following flights from {{flightTrip.sourceAirport}} to {{flightTrip.destAirport}}.</b><br>
+  <div style="padding-left: 30px;" ng-repeat="data in flightTrip.flightOptions">
+    <b>Option {{$index + 1}} {{data.recommend}}:</b><br> Total duration:
+    {{data.duration}} mins<br> Total Cost:
+    {{data.price}}<br> <br> Flight Info:
+    <p style="padding-left: 100px;"
+      ng-repeat="segment in data.segment">
+      Flight: {{segment.carrier}} {{segment.number}}<br>
+      From: {{segment.origin}}<br> To:
+      {{segment.destination}}<br> Departure Time:
+      {{segment.departureTime}}<br> Arrival Time:
+      {{segment.arrivalTime}}<br> Duration:
+      {{segment.duration}} mins
+    </p>
+  </div>
+  <br> <b>4. Travel {{flightTrip.destCarTrip.distance}} in {{flightTrip.destCarTrip.carClass}}
+    to your destination.</b><br> Travel Duration:
+  {{flightTrip.destCarTrip.duration}}<br> Trip Price: {{flightTrip.destCarTrip.price}}<br>
+  <br>
+  </p>
+  </div>
+</div>
+</div>

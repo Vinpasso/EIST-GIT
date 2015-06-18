@@ -1,0 +1,33 @@
+<hr ng-show="showTrainTripPlan" style="width: 100%; border-width: 3px;"
+  align="left">
+<div ng-show="showRentalCarTripPlan" class="container" ng-style="{'background-color': recommend.trainBGColor}">
+<div class="row">
+<div class="col-xs-6">
+<h3>By Train {{recommend.trainTrip}}</h3>
+  <p>
+    <b>Total Price: </b>{{trainTrip.totalTrainPrice}} EUR<br> <b>Total
+      Duration: </b>{{trainTrip.totalTrainDuration}} Hours<br> <b>Total
+      Distance: </b>{{trainTrip.totalTrainDistance}} Kms
+  </p>
+  <p>
+    <b>1. Walk {{trainTrip.sourceCarLocation.distance}} to get {{trainTrip.sourceCarLocation.type}} at
+      Coordinates: {{trainTrip.sourceCarLocation.coordinates.latitude}}, {{trainTrip.sourceCarLocation.coordinates.longitude}}</b><br> Walk
+    Duration: {{trainTrip.sourceCarLocation.duration}}<br> Vehicle Type: {{trainTrip.sourceCarLocation.type}}<br>
+    Typical Seating: {{trainTrip.sourceCarLocation.seats}}<br> <br> <b>2.
+      Travel {{trainTrip.sourceCarTrip.distance}} to {{trainTrip.sourceTrainStation}}.</b><br>
+    Travel Duration: {{trainTrip.sourceCarTrip.duration}}<br> Trip Price:
+    {{trainTrip.sourceCarTrip.price}}<br> <br> <b>3. Take train from
+      source Train Station: {{trainTrip.sourceTrainStation}} to destination Train
+      Station: {{trainTrip.destTrainStation}}.</b><br> Source Train Station Address:
+    {{trainTrip.sourceTrainStationAddress}}<br> Destination Train Station Address:
+    {{trainTrip.destTrainStationAddress}}<br> Travel Duration:
+    {{trainTrip.trainTrip.duration}}<br> Trip Price: {{trainTrip.trainTrip.price}}<br>
+    Trip Distance: {{trainTrip.trainTrip.distance}}<br> Seats: {{trainTrip.trainTrip.seats}}<br>
+    Cabin: {{trainTrip.trainTrip.cabin}}<br> <br> <b>4. Travel
+      {{trainTrip.destCarTrip.distance}} in {{trainTrip.destCarTrip.carClass}} to your destination.</b><br>
+    Travel Duration: {{trainTrip.destCarTrip.duration}}<br> Trip Price:
+    {{trainTrip.destCarTrip.price}}
+  </p>
+  </div>
+</div>
+</div>

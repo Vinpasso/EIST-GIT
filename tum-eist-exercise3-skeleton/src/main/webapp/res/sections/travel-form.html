@@ -1,0 +1,46 @@
+<form style="width: 30%" role="form" name="travel"
+  ng-submit="travel.$valid && travelCtrl.findTravelOptions()">
+  <div class="form-group">
+    <label for="sourceStr">Source Street*</label> <input type="text"
+      class="form-control" ng-model="sourceStr" required />
+  </div>
+  <div class="form-group">
+    <label for="sourceCity">Source City*</label> <input type="text"
+      class="form-control" ng-model="sourceCity" required />
+  </div>
+  <div class="form-group">
+    <label for="destStr">Destination Street*</label> <input type="text"
+      class="form-control" ng-model="destStr" required />
+  </div>
+  <div class="form-group">
+    <label for="destCity">Destination City*</label> <input type="text"
+      class="form-control" ng-model="destCity" required />
+  </div>
+  <div class="form-group">
+    <label>Date of Journey*</label> <input class="form-control"
+      id="flightDate" type="date" placeholder="YYYY-MM-DD" required>
+  </div>
+  <div class="form-group">
+    <label for="seats">Seats*</label>
+    <select class="form-control" name="seats" 
+    data-ng-options="o.value for o in seatOptions" 
+    data-ng-model="selectedOption"></select>
+  </div>
+  <hr style="border-width:2px;">
+  <b>Flight Options (Optional): </b>
+  <div class="checkbox">
+    <label><input ng-model="nonStop" type="checkbox">Non-Stop</label>
+  </div>
+  <div class="checkbox">
+    <label><input ng-model="refundable" type="checkbox">Refundable</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Find My Options</button>
+</form>
+<div ng-show=showResult>
+<b>Total Geographical distance between source and destination is
+    {{distance}} Kms.</b>
+</div>
+<div ng-show=showError>
+  <b>API Errors: </b><br>
+  {{error}}
+</div>
